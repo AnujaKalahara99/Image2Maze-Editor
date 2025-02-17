@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NeutralinoJs sample app</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="bg-gray-100 min-h-screen">
+    <div class="flex h-screen">
+      <!-- Left Panel -->
+      <div class="w-1/2 p-4 border-r border-gray-300">
+        <!-- Toggle Controls -->
+        <div class="mb-4 flex justify-end space-x-4">
+          <button
+            id="toggleImage"
+            class="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors"
+          >
+            Hide Image
+          </button>
+          <button
+            id="toggleGrid"
+            class="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors"
+          >
+            Hide Grid
+          </button>
+        </div>
+        <div
+          id="imagePanel"
+          class="h-full flex items-center justify-center bg-white rounded-lg shadow-md overflow-hidden"
+        >
+          <img
+            id="previewImage"
+            class="max-w-full max-h-full object-contain hidden"
+            alt="Preview"
+          />
+          <div id="dropZoneText" class="text-gray-400 text-center">
+            <p class="text-xl">No image loaded</p>
+            <p class="text-sm">Image will appear here</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Panel -->
+      <div class="w-1/2 p-4">
+        <div class="h-full flex flex-col space-y-4">
+          <!-- Tab Navigation -->
+          <div class="flex space-x-2 border-b">
+            <button
+              id="fileTab"
+              class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 border-b-2 border-transparent hover:border-gray-300"
+            >
+              File
+            </button>
+            <button
+              id="gridTab"
+              class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 border-b-2 border-transparent hover:border-gray-300"
+            >
+              Grid
+            </button>
+            <button
+              id="drawTab"
+              class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 border-b-2 border-transparent hover:border-gray-300"
+            >
+              Draw
+            </button>
+            <button
+              id="exportTab"
+              class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 border-b-2 border-transparent hover:border-gray-300"
+            >
+              Export
+            </button>
+          </div>
+
+          <!-- Tab Content -->
+          <div id="tabContent" class="flex-1 overflow-auto">
+            <!-- File Tab -->
+            <div id="fileContent" class="hidden p-4 space-y-6">
+              <div class="space-y-4">
+                <h3 class="text-lg font-semibold">New Image</h3>
+
+                <!-- Grid Size Controls -->
+                <div class="space-y-4">
+                  <h4 class="text-md font-medium">Grid Size</h4>
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700"
+                        >Width</label
+                      >
+                      <input
+                        type="number"
+                        id="gridWidth"
+                        min="1"
+                        max="50"
+                        value="20"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700"
+                        >Height</label
+                      >
+                      <input
+                        type="number"
+                        id="gridHeight"
+                        min="1"
+                        max="50"
+                        value="20"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Load Image Button -->
+                <button
+                  id="loadImageBtn"
+                  class="w-full px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors"
+                >
+                  Load New Image with Grid
+                </button>
+              </div>
+
+              <div class="space-y-4">
+                <h3 class="text-lg font-semibold">Grid Data</h3>
+                <div class="flex space-x-4">
+                  <button
+                    id="loadGridData"
+                    class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+                  >
+                    Load Grid Data
+                  </button>
+                  <button
+                    id="saveGridData"
+                    class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+                  >
+                    Save Grid Data
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Grid Tab -->
+            <div id="gridContent" class="hidden">
+              <div id="controlsContainer" class="w-full"></div>
+            </div>
+
+            <!-- Draw Tab -->
+            <div id="drawContent" class="hidden">
+              <div class="space-y-4 p-4">
+                <h3 class="text-lg font-semibold">Draw Mode</h3>
+                <div class="bg-blue-50 p-4 rounded-lg">
+                  <p class="text-sm text-blue-800 mb-2">How to use:</p>
+                  <ul
+                    class="list-disc list-inside text-sm text-blue-700 space-y-2"
+                  >
+                    <li>Click near cell edges to toggle walls</li>
+                    <li>
+                      Walls are automatically synchronized between adjacent
+                      cells
+                    </li>
+                    <li>Hover near edges to preview wall placement</li>
+                    <li>Click any other tab to exit draw mode</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Export Tab -->
+            <div id="exportContent" class="hidden p-4 space-y-6">
+              <!-- Configuration Section -->
+              <div class="space-y-4">
+                <h3 class="text-lg font-semibold">Wall Configuration</h3>
+                <div class="flex items-center space-x-2">
+                  <input
+                    type="text"
+                    id="wallConfig"
+                    value="NESW"
+                    class="px-3 py-2 border rounded-md w-24 text-center"
+                    maxlength="4"
+                  />
+                  <span class="text-sm text-gray-500"
+                    >(N=North, E=East, S=South, W=West)</span
+                  >
+                </div>
+                <div class="flex space-x-4">
+                  <button
+                    id="convertArrayBtn"
+                    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2"
+                  >
+                    Convert to Array
+                  </button>
+                  <button
+                    id="convertMmsBtn"
+                    class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none focus:ring-2"
+                  >
+                    Convert to MMS
+                  </button>
+                </div>
+              </div>
+
+              <!-- Output Display Section -->
+              <div class="space-y-2">
+                <h3 class="text-lg font-semibold">Output</h3>
+                <div class="relative">
+                  <textarea
+                    id="exportOutput"
+                    class="w-full h-40 px-3 py-2 border rounded-md font-mono text-sm"
+                    readonly
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- Copy Buttons Section -->
+              <div class="space-y-2">
+                <h3 class="text-lg font-semibold">Copy as</h3>
+                <div class="flex space-x-4">
+                  <button
+                    id="copyTextBtn"
+                    class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 focus:outline-none focus:ring-2"
+                  >
+                    Text
+                  </button>
+                  <button
+                    id="copyPythonBtn"
+                    class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 focus:outline-none focus:ring-2"
+                  >
+                    Python
+                  </button>
+                  <button
+                    id="copyCppBtn"
+                    class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 focus:outline-none focus:ring-2"
+                  >
+                    C++
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/neutralino.js"></script>
+    <script src="/js/imagePanel.js"></script>
+    <script src="/js/controlPanel.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>
