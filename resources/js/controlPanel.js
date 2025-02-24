@@ -151,38 +151,38 @@ class ControlPanel {
 
     this.controlsContainer.innerHTML = `
       <div class="space-y-4">
-        <h3 class="text-lg font-semibold">Cell (${x}, ${y})</h3>
+        <h3 class="text-lg font-semibold text-gray-800">Cell (${x}, ${y})</h3>
         <div class="grid grid-cols-3 gap-2 w-48 mx-auto">
           <div></div>
-          <button id="northWall" class="p-2 border ${
-            currentConfig & 8 ? "bg-red-500 text-white" : ""
+          <button id="northWall" class="p-2 border border-gray-300 rounded ${
+            currentConfig & 8 ? "bg-blue-600 text-white" : "hover:bg-gray-50"
           }">N</button>
           <div></div>
-          <button id="westWall" class="p-2 border ${
-            currentConfig & 1 ? "bg-red-500 text-white" : ""
+          <button id="westWall" class="p-2 border border-gray-300 rounded ${
+            currentConfig & 1 ? "bg-blue-600 text-white" : "hover:bg-gray-50"
           }">W</button>
-          <div class="p-2 border bg-gray-100"></div>
-          <button id="eastWall" class="p-2 border ${
-            currentConfig & 4 ? "bg-red-500 text-white" : ""
+          <div class="p-2 border border-gray-300 rounded bg-gray-50"></div>
+          <button id="eastWall" class="p-2 border border-gray-300 rounded ${
+            currentConfig & 4 ? "bg-blue-600 text-white" : "hover:bg-gray-50"
           }">E</button>
           <div></div>
-          <button id="southWall" class="p-2 border ${
-            currentConfig & 2 ? "bg-red-500 text-white" : ""
+          <button id="southWall" class="p-2 border border-gray-300 rounded ${
+            currentConfig & 2 ? "bg-blue-600 text-white" : "hover:bg-gray-50"
           }">S</button>
           <div></div>
         </div>
         <div class="mt-4">
-          <p class="text-sm">Wall Config: ${currentConfig
+          <p class="text-sm text-gray-600">Wall Config: ${currentConfig
             .toString(2)
             .padStart(4, "0")}</p>
         </div>
         <div class="mt-4">
-          <button id="clearCell" class="px-4 py-2 bg-gray-500 text-white rounded">Clear Cell</button>
+          <button id="clearCell" class="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 focus:outline-none focus:ring-2">Clear Cell</button>
         </div>
       </div>
       <div class="mt-8">
-        <h4 class="text-lg font-semibold mb-2">Grid Data</h4>
-        <div class="text-xs font-mono bg-gray-100 p-2 rounded overflow-auto">
+        <h4 class="text-lg font-semibold text-gray-800 mb-2">Grid Data</h4>
+        <div class="text-xs font-mono bg-gray-50 p-2 rounded border border-gray-200 overflow-auto">
           ${gridHtml}
         </div>
       </div>

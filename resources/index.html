@@ -10,25 +10,25 @@
   <body class="bg-gray-100 min-h-screen">
     <div class="flex h-screen">
       <!-- Left Panel -->
-      <div class="w-1/2 p-4 border-r border-gray-300">
+      <div class="w-1/2 p-4 border-r border-gray-200">
         <!-- Toggle Controls -->
         <div class="mb-4 flex justify-end space-x-4">
           <button
             id="toggleImage"
-            class="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors"
+            class="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors"
           >
             Hide Image
           </button>
           <button
             id="toggleGrid"
-            class="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors"
+            class="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors"
           >
             Hide Grid
           </button>
         </div>
         <div
           id="imagePanel"
-          class="h-full flex items-center justify-center bg-white rounded-lg shadow-md overflow-hidden"
+          class="h-full flex items-center justify-center bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden"
         >
           <img
             id="previewImage"
@@ -46,28 +46,28 @@
       <div class="w-1/2 p-4">
         <div class="h-full flex flex-col space-y-4">
           <!-- Tab Navigation -->
-          <div class="flex space-x-2 border-b">
+          <div class="flex space-x-2 border-b border-gray-200">
             <button
               id="fileTab"
-              class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 border-b-2 border-transparent hover:border-gray-300"
+              class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600"
             >
               File
             </button>
             <button
               id="gridTab"
-              class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 border-b-2 border-transparent hover:border-gray-300"
+              class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600"
             >
               Grid
             </button>
             <button
               id="drawTab"
-              class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 border-b-2 border-transparent hover:border-gray-300"
+              class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600"
             >
               Draw
             </button>
             <button
               id="exportTab"
-              class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 border-b-2 border-transparent hover:border-gray-300"
+              class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600"
             >
               Export
             </button>
@@ -142,8 +142,39 @@
             </div>
 
             <!-- Grid Tab -->
-            <div id="gridContent" class="hidden">
-              <div id="controlsContainer" class="w-full"></div>
+            <div id="gridContent" class="hidden p-4 space-y-6">
+              <!-- Add info box -->
+              <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
+                <div class="flex">
+                  <div class="flex-shrink-0">
+                    <svg
+                      class="h-5 w-5 text-blue-400"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <div class="ml-3">
+                    <p class="text-sm text-blue-700">
+                      Click on any cell in the grid to edit its walls. Use the
+                      WASD buttons to toggle walls for the selected cell. Use
+                      Arrow Keys to move the selected cell. The binary
+                      configuration shows the current wall state. This
+                      configuration can be changed in the Export tab.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Existing grid controls -->
+              <div id="controlsContainer" class="space-y-4">
+                <!-- Grid controls content -->
+              </div>
             </div>
 
             <!-- Draw Tab -->
@@ -160,7 +191,7 @@
                       Walls are automatically synchronized between adjacent
                       cells
                     </li>
-                    <li>Hover near edges to preview wall placement</li>
+                    <!-- <li>Hover near edges to preview wall placement</li> -->
                     <li>Click any other tab to exit draw mode</li>
                   </ul>
                 </div>
@@ -169,31 +200,75 @@
 
             <!-- Export Tab -->
             <div id="exportContent" class="hidden p-4 space-y-6">
-              <!-- Configuration Section -->
+              <!-- Add info box -->
+              <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
+                <div class="flex">
+                  <div class="flex-shrink-0">
+                    <svg
+                      class="h-5 w-5 text-blue-400"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <div class="ml-3">
+                    <p class="text-sm text-blue-700">
+                      Export your maze in different formats. Use the wall
+                      configuration to specify the order of walls (NESW). The
+                      configuration works as follows.
+                      <br />
+                      <br />
+                      Lets Take NESW for example. N=North, E=East, S=South,
+                      W=West. So if a cell has N and S walls but no walls in E
+                      and W, It will show;
+                      <br />
+                      N E S W
+                      <br />
+                      1 0 1 0
+                      <br />
+                      Which is 1010 in binary or 10 in decimal.
+                      <br />
+                      <br />
+                      Convert to Array for numerical representation or MMS for
+                      visual format. Copy the output in your preferred format.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Existing export controls -->
               <div class="space-y-4">
-                <h3 class="text-lg font-semibold">Wall Configuration</h3>
+                <h3 class="text-lg font-semibold text-gray-800">
+                  Wall Configuration
+                </h3>
                 <div class="flex items-center space-x-2">
                   <input
                     type="text"
                     id="wallConfig"
                     value="NESW"
-                    class="px-3 py-2 border rounded-md w-24 text-center"
+                    class="px-3 py-2 border border-gray-300 rounded-md w-24 text-center focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     maxlength="4"
                   />
                   <span class="text-sm text-gray-500"
-                    >(N=North, E=East, S=South, W=West)</span
+                    >Change the order of wall configuration <br />
+                    (N=North, E=East, S=South, W=West)</span
                   >
                 </div>
                 <div class="flex space-x-4">
                   <button
                     id="convertArrayBtn"
-                    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2"
+                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                   >
                     Convert to Array
                   </button>
                   <button
                     id="convertMmsBtn"
-                    class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none focus:ring-2"
+                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                   >
                     Convert to MMS
                   </button>
@@ -202,11 +277,11 @@
 
               <!-- Output Display Section -->
               <div class="space-y-2">
-                <h3 class="text-lg font-semibold">Output</h3>
+                <h3 class="text-lg font-semibold text-gray-800">Output</h3>
                 <div class="relative">
                   <textarea
                     id="exportOutput"
-                    class="w-full h-40 px-3 py-2 border rounded-md font-mono text-sm"
+                    class="w-full h-40 px-3 py-2 border border-gray-300 rounded-md font-mono text-sm bg-gray-50"
                     readonly
                   ></textarea>
                 </div>
@@ -214,23 +289,23 @@
 
               <!-- Copy Buttons Section -->
               <div class="space-y-2">
-                <h3 class="text-lg font-semibold">Copy as</h3>
+                <h3 class="text-lg font-semibold text-gray-800">Copy as</h3>
                 <div class="flex space-x-4">
                   <button
                     id="copyTextBtn"
-                    class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 focus:outline-none focus:ring-2"
+                    class="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
                   >
                     Text
                   </button>
                   <button
                     id="copyPythonBtn"
-                    class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 focus:outline-none focus:ring-2"
+                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     Python
                   </button>
                   <button
                     id="copyCppBtn"
-                    class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 focus:outline-none focus:ring-2"
+                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     C++
                   </button>

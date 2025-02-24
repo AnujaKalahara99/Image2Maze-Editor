@@ -3,14 +3,16 @@ class ImagePanel {
     this.previewImage = document.getElementById("previewImage");
     this.dropZoneText = document.getElementById("dropZoneText");
     this.imagePanel = document.getElementById("imagePanel");
+    this.toggleImageBtn = document.getElementById("toggleImage");
+    this.toggleGridBtn = document.getElementById("toggleGrid");
 
     // Create canvas overlay for grid
     this.canvas = document.createElement("canvas");
     this.canvas.classList.add(
       "absolute",
       "top-0",
-      "left-0",
-      "pointer-events-none"
+      "left-0"
+      // "pointer-events-none"
     );
     this.ctx = this.canvas.getContext("2d");
 
@@ -24,45 +26,6 @@ class ImagePanel {
       .map(() => Array(20).fill(0));
     this.selectedCell = null;
 
-    // Add click handler
-    this.canvas.classList.remove("pointer-events-none");
-    this.canvas.addEventListener("click", (e) => {
-      if (this.isDrawMode) {
-        this.handleDrawModeClick(e);
-      } else {
-        this.handleCanvasClick(e);
-      }
-    });
-
-    // Add toggle state
-    this.isImageVisible = true;
-    this.isGridVisible = true;
-
-    // Add toggle buttons
-    this.toggleImageBtn = document.getElementById("toggleImage");
-    this.toggleGridBtn = document.getElementById("toggleGrid");
-
-    // Setup toggle handlers
-    this.setupToggleHandlers();
-
-    // Add resize observer
-    this.resizeObserver = new ResizeObserver(() => {
-      if (this.previewImage.src) {
-        this.drawGrid();
-      }
-    });
-
-    // Observe both the container and the image
-    this.resizeObserver.observe(this.imagePanel);
-    this.resizeObserver.observe(this.previewImage);
-
-    // Add window resize listener for good measure
-    window.addEventListener("resize", () => {
-      if (this.previewImage.src) {
-        this.drawGrid();
-      }
-    });
-
     // Add draw mode state
     this.isDrawMode = false;
 
@@ -72,6 +35,40 @@ class ImagePanel {
     // Add drag state tracking
     this.isDragging = false;
     this.lastWallInfo = null;
+
+    // Add toggle state
+    this.isImageVisible = true;
+    this.isGridVisible = true;
+
+    // Setup toggle handlers
+    this.setupToggleHandlers();
+
+    // Add click handler
+    // this.canvas.classList.remove("pointer-events-none");
+    this.canvas.addEventListener("click", (e) => {
+      if (this.isDrawMode) {
+        this.handleDrawModeClick(e);
+      } else {
+        this.handleCanvasClick(e);
+      }
+    });
+
+    // Add resize observer because the image overlay grid will not automatically align when resizing window
+    this.resizeObserver = new ResizeObserver(() => {
+      if (this.previewImage.src) {
+        this.drawGrid();
+      }
+    });
+
+    this.resizeObserver.observe(this.imagePanel);
+    this.resizeObserver.observe(this.previewImage);
+
+    // Add window resize listener for good measure
+    // window.addEventListener("resize", () => {
+    //   if (this.previewImage.src) {
+    //     this.drawGrid();
+    //   }
+    // });
 
     // Update mouse down handler for drag start
     this.canvas.addEventListener("mousedown", (e) => {
@@ -96,7 +93,6 @@ class ImagePanel {
       if (this.isDrawMode) {
         const wallInfo = this.getCellAndWallFromClick(e);
         if (this.isDragging && wallInfo.wallInfo) {
-          // Check if this is a different wall than the last one we modified
           const isSameWall =
             this.lastWallInfo &&
             this.lastWallInfo.cellX === wallInfo.cellX &&
@@ -170,6 +166,7 @@ class ImagePanel {
     }
   }
 
+  //PUBLIC METHOD
   displayImage(imagePath) {
     // Get file extension to determine mime type
     const ext = imagePath.split(".").pop().toLowerCase();
@@ -256,14 +253,11 @@ class ImagePanel {
       this.canvas.width = containerRect.width;
       this.canvas.height = containerRect.height;
 
-      // Clear previous grid
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-      // Calculate cell size based on grid dimensions
       const cellWidth = gridSize / this.gridData[0].length;
       const cellHeight = gridSize / this.gridData.length;
 
-      // Draw grid lines
       this.ctx.strokeStyle = "rgba(255, 0, 217, 0.5)";
       this.ctx.lineWidth = 1;
 
@@ -419,7 +413,6 @@ class ImagePanel {
   }
 
   updateCellWalls(x, y, newConfig) {
-    const oldConfig = this.gridData[y][x];
     this.gridData[y][x] = newConfig;
 
     // Update adjacent cells
@@ -647,15 +640,50 @@ class ImagePanel {
     const height = this.gridData.length;
     let output = "";
 
+    // Helper function to draw horizontal walls
+    const drawHorizontalWalls = (y, x) => {
+      const cell = this.gridData[y][x];
+      return cell & 8 ? "---" : "   "; // Check north wall
+    };
+
+    // Helper function to draw vertical walls
+    const drawVerticalWalls = (y, x) => {
+      const cell = this.gridData[y][x];
+      return cell & 1 ? "|" : " "; // Check west wall
+    };
+
+    // Draw the maze row by row
     for (let y = 0; y < height; y++) {
+      // Draw horizontal walls and posts for current row
+      output += "o";
       for (let x = 0; x < width; x++) {
-        const cell = this.gridData[y][x];
-        // Convert to MMS format (you may need to adjust this based on MMS requirements)
-        output += cell.toString(16).toUpperCase();
-        if (x < width - 1) output += " ";
+        output += drawHorizontalWalls(y, x) + "o";
       }
       output += "\n";
+
+      // Draw vertical walls and cell spaces
+      if (y < height) {
+        for (let x = 0; x < width; x++) {
+          if (x === 0) {
+            output += drawVerticalWalls(y, x);
+          }
+          output += "   "; // Cell space
+          output += x < width - 1 ? drawVerticalWalls(y, x + 1) : "";
+        }
+        // Add last wall if it exists (east wall of last cell)
+        const lastCell = this.gridData[y][width - 1];
+        if (lastCell & 4) output += "|";
+        output += "\n";
+      }
     }
+
+    // Draw bottom walls for last row
+    output += "o";
+    for (let x = 0; x < width; x++) {
+      const cell = this.gridData[height - 1][x];
+      output += (cell & 2 ? "---" : "   ") + "o"; // Check south wall
+    }
+    output += "\n";
 
     return output;
   }
