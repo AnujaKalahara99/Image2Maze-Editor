@@ -50,9 +50,7 @@ class ControlPanel {
     Object.entries(this.tabs).forEach(([tabName, tab]) => {
       tab.button.addEventListener("click", () => {
         this.switchTab(tabName);
-        // Enable draw mode only when draw tab is active
         this.imagePanel.setDrawMode(tabName === "draw");
-        // Update grid display when switching to grid tab
         if (tabName === "grid") {
           this.updateGridDisplay();
         }
@@ -96,7 +94,6 @@ class ControlPanel {
         this.toggleWall(1); // West
         break;
 
-      // Navigation
       case "arrowup":
         if (this.currentY > 0) {
           this.moveToCell(this.currentX, this.currentY - 1);
@@ -118,7 +115,6 @@ class ControlPanel {
         }
         break;
       case "enter":
-        // Move to next cell, wrap to next row if at end
         if (this.currentX < 19) {
           this.moveToCell(this.currentX + 1, this.currentY);
         } else if (this.currentY < 19) {
@@ -295,7 +291,6 @@ class ControlPanel {
         // Load the image
         await this.imagePanel.displayImage(imagePath);
 
-        // Initialize the right panel with the first cell and switch to grid tab
         this.currentX = 0;
         this.currentY = 0;
         this.showCellControls(0, 0, 0);
@@ -308,7 +303,6 @@ class ControlPanel {
   }
 
   setupFileTabHandlers() {
-    // Grid data save/load handlers
     document.getElementById("loadGridData").addEventListener("click", () => {
       this.loadGridData();
     });
@@ -350,7 +344,6 @@ class ControlPanel {
     }
 
     try {
-      // Initialize the grid with the specified size
       await this.imagePanel.resizeGrid(width, height);
 
       // Load the image
@@ -439,7 +432,6 @@ class ControlPanel {
   }
 
   getAssociatedJsonPath(imagePath) {
-    // Remove the image extension and add .json
     return imagePath.replace(/\.[^/.]+$/, "") + ".json";
   }
 
@@ -519,7 +511,6 @@ class ControlPanel {
     }
   }
 
-  // Modify handleDrawModeClick in ImagePanel to trigger update
   setDrawMode(enabled) {
     this.isDrawMode = enabled;
     this.canvas.style.cursor = enabled ? "crosshair" : "pointer";
