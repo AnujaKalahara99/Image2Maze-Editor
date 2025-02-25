@@ -8,7 +8,7 @@ Welcome to Image2Maze! 👋 Turn your images into amazing mazes with this friend
 
 ## 🚀 Download
 
-Get the latest release from the [Releases](https://github.com/AnujaKalahara99/Image2Maze/releases) page.
+Get the latest release from the [Releases](https://github.com/AnujaKalahara99/Image2Maze-Editor/releases) page.
 
 ## ✨ What Can You Do?
 
