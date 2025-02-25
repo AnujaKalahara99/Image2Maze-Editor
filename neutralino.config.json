@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/neutralinojs/neutralinojs/main/schemas/neutralino.config.schema.json",
-  "applicationId": "js.neutralino.sample",
+  "applicationId": "image2maze.apk",
   "version": "1.0.0",
   "defaultMode": "window",
   "port": 0,
@@ -20,17 +20,10 @@
     "filesystem.*",
     "clipboard.writeText"
   ],
-  "globalVariables": {
-    "TEST1": "Hello",
-    "TEST2": [2, 4, 5],
-    "TEST3": {
-      "value1": 10,
-      "value2": {}
-    }
-  },
+
   "modes": {
     "window": {
-      "title": "neu_MazeImageConverter",
+      "title": "Image2Maze",
       "width": 800,
       "height": 500,
       "minWidth": 400,
@@ -38,7 +31,7 @@
       "center": true,
       "fullScreen": false,
       "alwaysOnTop": false,
-      "icon": "/resources/icons/appIcon.png",
+      "icon": "/resources/icons/appIcon.jpg",
       "enableInspector": true,
       "borderless": false,
       "maximize": false,

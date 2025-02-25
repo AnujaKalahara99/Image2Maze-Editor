@@ -1,42 +1,46 @@
-# Image2Maze Editor
+# <img src="resources/icons/appIcon.jpg" width="30" height="30"> Image2Maze Editor
 
 Welcome to Image2Maze! 👋 Turn your images into amazing mazes with this friendly editor. Perfect for creating mazes for micromouse simulators and more! ✨
 
-![Example of Image2Maze](docs/example.png)
+![Example of Image2Maze](readme_data/example.png)
 
-> Transform any image into a maze with our intuitive editor. Above shows converting a floor plan into a maze format.
+> Transform any image into a maze with this editor. Above shows converting a Image of a maze into a maze format.
+
+## 🚀 Download
+
+Get the latest release from the [Releases](https://github.com/AnujaKalahara99/Image2Maze/releases) page.
 
 ## ✨ What Can You Do?
 
-### 🖼️ Import Your Images
+### Import Your Images
 
 - Drop in any image as your maze template
 - Watch it magically transform with an editable grid
 - Show or hide the image whenever you need
 
-### 🎮 Easy Grid Editing
+### Easy Grid Editing
 
 - Simply click cells to edit walls
 - Move around with WASD or arrow keys (just like a game!)
 - Toggle walls with familiar WASD controls
 - See your wall setup in real-time
 
-### 🎨 Creative Draw Mode
+### Creative Draw Mode 🎨
 
 - Draw walls quickly by clicking and dragging
 - Walls sync automatically between cells (like magic!)
 - Smart edge detection makes wall placement a breeze
 
-### 📤 Flexible Export Options
+### Flexible Export Options
 
 - Transform your maze into arrays with custom NESW configuration
-- Export directly to MMS format for simulators
+- Export directly to **MMS (Micro Mouse Simulator) format** for simulators
 - Copy your maze as:
   - 📝 Plain text
   - 🐍 Python array
   - ⚡ C++ array
 
-## 🚀 Getting Started
+## ✅ Getting Started
 
 ### Grid Mode
 
@@ -61,7 +65,7 @@ Welcome to Image2Maze! 👋 Turn your images into amazing mazes with this friend
 
 ## Wall Configuration
 
-Here's how walls are stored (it's simpler than it looks!):
+Here's how walls are stored:
 
 - North: 8 (1000)
 - East: 4 (0100)
