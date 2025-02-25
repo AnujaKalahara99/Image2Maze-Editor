@@ -34,7 +34,7 @@ Get the latest release from the [Releases](https://github.com/AnujaKalahara99/Im
 ### Flexible Export Options
 
 - Transform your maze into arrays with custom NESW configuration
-- Export directly to **MMS (Micro Mouse Simulator) format** for simulators
+- Export directly to [MMS (Micro Mouse Simulator)](https://github.com/mackorone/mms) format for simulators
 - Copy your maze as:
   - 📝 Plain text
   - 🐍 Python array
@@ -78,6 +78,6 @@ Don't worry about these numbers - you can easily remap them in the Export tab! �
 
 Made possible thanks to:
 
-- NeutralinoJS
-- TailwindCSS
-- HTML5 Canvas
+- [NeutralinoJS](https://github.com/neutralinojs/neutralinojs)
+- [TailwindCSS](https://tailwindcss.com/)
+- [HTML5 Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
